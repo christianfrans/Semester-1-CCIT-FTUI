@@ -1,0 +1,234 @@
+begin
+	display '------------WELCOME-----------'
+	display 'Travel with Us, Now! TravelNow'
+
+procedure pRegister
+procedure pPacket
+procedure pAirlines
+procedure pHotel
+procedure pCustomerData
+procedure pPayment
+
+numeric nTotalCountryPacket, nTotalHotel, nTotalPacket, nTotalGuest, nTotalPayment, nTimeEstimation
+nTotalCountryPacket = 0
+nTotalHotel = 0
+nTotalPacket = 0
+
+//PROCEDURE REGISTER
+procedure pRegister
+begin
+		character cName
+		display 'Please input your username'
+		accept cName
+		display 'input total guest'
+		accept nTotalGuest
+		display 'input time estimation'
+		accept nTimeEstimation
+end	
+
+//MAIN PROCEDURE
+begin
+	call procedure pRegister
+	
+	character cMenu, cPacket, cAirlines_Selection, cHotel_Selection
+		
+	display 'Let we serve you'
+	display '1. Packet'
+	display '2. Airlines'
+	display '3. Hotel'
+	
+	display 'What kind of services that you want to ?'
+	accept cMenu
+	
+	switch cMenu
+	begin
+		case 1 :
+			display 'Welcome to Packet Selection'
+			call procedure pPacket
+		break
+		case 2 :
+			display 'Welcome to Airlines Selection'
+			call procedure pAirlines
+		break
+		case 3 :
+			display 'Welcome to Hotel Selection'
+			call procedure pHotel
+		break
+	end
+	
+	call procedure pCustomerData
+end
+
+//PROCEDURE PACKET
+Procedure pPacket
+begin
+	character cPacketSelection
+	numeric nPacketSelection
+		display '1. Tera = International Tour Guide + Transportation + Food(3x) + Destination Places = Metropolitan + Nature Rp 1000000'
+		display '2. Giga = Indonesian Tour Guide + Transportation + Food(3x) + Destination Places = Metropolitan or Nature Rp 750000'
+		display '3. Mega = Indonesian Tour Guide + Transportation + Food(3x) + Destination Places = Nature Rp 500000'
+	
+	display 'Choose your packet'
+	accept nPacketSelection
+	
+	switch nPacketSelection
+		begin
+			Case 1 :
+				nTotalPacket = nPacketSelection * nTotalGuest * nTimeEstimation
+				display 'You have choose Tera for your Holiday'
+			break
+			Case 2 :
+				nTotalPacket = nPacketSelection * nTotalGuest * nTimeEstimation
+				display 'You have choose Giga for your Holiday'
+			break
+			Case 3 :
+				nTotalPacket = nPacketSelection * nTotalGuest * nTimeEstimation
+				display 'You have choose Mega for your Holiday'
+			break
+		end
+end
+
+//PROCEDURE AIRLINES
+Procedure pAirlines
+begin
+	character cCountryPacket
+	numeric nCountryPacket
+	
+		display '1. Kingdom = Rp 15000000'
+		display '2. Phylum = Rp 13000000'
+		display '3. Class = Rp 10000000'
+		
+		accept nCountryPacket
+		
+		switch nCountryPacket
+		begin
+			case 1 :
+				cCountryPacket = 'Japan, South Korea, China'
+				nTotalCountryPacket = nCountryPacket * nTotalGuest * nTimeEstimation
+				display 'The Country Packet contains of, '+ cCountryPacket'
+			break
+			case 2 :
+				cCountryPacket = 'Hongkong, Turkey, Vietnam'
+				nTotalCountryPacket = nCountryPacket * nTotalGuest * nTimeEstimation
+				display 'The Country Packet contains of,'+ cCountryPacket'
+			break
+			case 3 :
+				cCountryPacket = 'Malaysia, Thailand, Singapore'
+				nTotalCountryPacket = nCountryPacket * nTotalGuest * nTimeEstimation
+				display 'The Country Packet contains of,'+ cCountryPacket'
+			break
+		end
+end
+
+//PROCEDURE HOTEL
+Procedure pHotel
+begin
+	character cHotel_Selection
+	numeric nTotalHotel, nHotel_Selection, nTotalRooms
+		display '1. 5 Star Hotel = Rp 750000'
+		display '2. 4 Star Hotel = Rp 550000'
+		display '3. 3 Star Hotel = Rp 450000'
+	
+	accept nHotel_Selection
+	
+	switch nHotel_Selection
+		begin
+			Case 1 :
+				cHotel_Selection = 'Intercontinental Hotel'
+				nTotalHotel = nHotel * nTotalRooms * nTimeEstimation
+				display 'Here are your hotel,'+ cHotel_Selection
+			break
+			Case 2 :
+				cHotel_Selection = 'Four Seasons Hotel'
+				nTotalHotel = nHotel * nTotalRooms * nTimeEstimation
+				display 'Here are your hotel,'+ cHotel_Selection
+			break
+			Case 3 :
+				cHotel_Selection = 'RedDoorz Hotel'
+				nTotalHotel = nHotel * nTotalRooms * nTimeEstimation
+				display 'Here are your hotel,'+ cHotel_Selection
+			break
+		end
+end
+
+//PROCEDURE CUSTOMER DATA
+procedure pCustomerData
+begin
+	character cFullName, cPhonenumber, cAddress, cE-mail, cDateofbirth, cAkhir1, cAkhir2
+	numeric nPhoneNumber, nIdCardNumbers
+	
+	display 'Full Name'
+	accept cFullName
+	display 'Phone Number'
+	accept nPhoneNumber
+	display 'Address'
+	accept cAddress
+	display 'ID Card Number'
+	accept nIdCardNumbers
+	display 'E-Mail'
+	accept cE-mail
+	display 'Date of birth'
+	accept cDateofbirth
+	//End of Customer Data
+	
+	if(cFullName='') and if(cPhonenumber='') and if(cE-mail='') and if(cDateofbirth='')
+		begin
+			display 'Make sure you've fulfill all data'
+			call pCustomerData
+		end
+	else
+		begin
+		display 'Do you want to add another customer data ?'
+		display 'Yes or No (Y/N)'
+		accept cAkhir1
+			if (cAkhir1=Y)
+			call pCustomerData
+		end	
+	else
+		if(cAkhir1=N)
+		begin
+		display 'Are you sure want to proceed to Payment Method?'
+		display 'Yes or No (Y/N)'
+		accept cAkhir2
+			if (cAkhir2=Y)
+			begin
+			call pPayment
+			end
+			begin
+				display 'Your order is being canceled'
+			end
+		end
+end
+
+//PROCEDURE PAYMENT
+Procedure pPayment
+begin
+	
+	numeric nSelection, nTotalPayment
+	display 'Payment Method'
+	display '1. Cash' //Meet with our Employee
+	display '2. Transfer'
+	display 'Input your Payment Method :'
+	accept nSelection
+	
+	switch nSelection
+	begin
+		case 1:
+			display 'We're waiting for you, here are our Company Address : Gedung Artha Graha, Jl. Jend. Sudirman No.Kav 52-53, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190'
+				nTotalPayment = nTotalCountryPacket + nTotalHotel + nTotalPacket
+				display 'This is the total of what you need to pay' + nTotalPayment
+		break
+		case 2:
+			display 'Bank Name												Account Number				in the Name of'
+			display '-------------------------------------------------------------------------------------------------'
+			display '1.BCA													  1864279304				  TravelNow	  '
+			display '2.BRI													  1783627392				  TravelNow	  '
+			display '3.Mandiri												  7483920163				  TravelNow	  '
+			display '4.BNI													  6381037291				  TravelNow	  '
+		
+				nTotalPayment = nTotalCountryPacket + nTotalHotel + nTotalPacket
+					display 'This is the total of what you need to pay '+ nTotalPayment
+		break
+	end
+
+end
